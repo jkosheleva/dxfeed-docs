@@ -2,7 +2,8 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, relative, resolve, sep } from "node:path";
 
 const distDir = resolve("dist");
-const siteOrigin = "https://kb.dxfeed.com";
+const siteOrigin = "https://jkosheleva.github.io";
+const siteBase = "/dxfeed-docs";
 
 if (!existsSync(distDir)) {
   console.error("dist/ does not exist. Run `npm run build` first.");
@@ -31,6 +32,12 @@ function targetFile(pathname) {
     decodedPath = decodeURIComponent(pathname);
   } catch {
     return undefined;
+  }
+
+  if (decodedPath === siteBase) {
+    decodedPath = "/";
+  } else if (decodedPath.startsWith(`${siteBase}/`)) {
+    decodedPath = decodedPath.slice(siteBase.length);
   }
 
   const relativePath = decodedPath.replace(/^\/+/, "");
@@ -85,7 +92,7 @@ for (const file of htmlFiles) {
 
     let url;
     try {
-      url = new URL(rawReference, `${siteOrigin}${sourceRoute}`);
+      url = new URL(rawReference, `${siteOrigin}${siteBase}${sourceRoute}`);
     } catch {
       failures.push(`${sourceRoute} -> invalid URL: ${rawReference}`);
       continue;

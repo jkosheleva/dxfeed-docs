@@ -1,11 +1,99 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import starlightLlmsTxt from "starlight-llms-txt";
+import { readdir, readFile, writeFile } from "node:fs/promises";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import redirectsConfig from "./redirects.json" with { type: "json" };
 
+const githubPagesBase = "/dxfeed-docs";
+const githubPagesSite = "https://jkosheleva.github.io";
+
+function prefixRootRelativeUrls({ base }) {
+  return (tree) => {
+    const visit = (node) => {
+      if (node?.type === "element" && node.properties) {
+        for (const property of ["href", "src"]) {
+          const value = node.properties[property];
+          if (
+            typeof value === "string" &&
+            value.startsWith("/") &&
+            !value.startsWith("//") &&
+            !value.startsWith(`${base}/`)
+          ) {
+            node.properties[property] = `${base}${value}`;
+          }
+        }
+      }
+
+      if (Array.isArray(node?.children)) {
+        node.children.forEach(visit);
+      }
+    };
+
+    visit(tree);
+  };
+}
+
+function prefixGeneratedHtmlUrls({ base }) {
+  const escapedBase = base
+    .slice(1)
+    .replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const rootRelativeUrl = new RegExp(
+    `\\b(href|src)="/(?!/|${escapedBase}(?:/|"))`,
+    "g",
+  );
+
+  return {
+    name: "prefix-generated-html-urls",
+    hooks: {
+      "astro:build:done": async ({ dir }) => {
+        const visitDirectory = async (directory) => {
+          const entries = await readdir(directory, { withFileTypes: true });
+
+          await Promise.all(
+            entries.map(async (entry) => {
+              const path = join(directory, entry.name);
+
+              if (entry.isDirectory()) {
+                await visitDirectory(path);
+              } else if (entry.isFile() && entry.name.endsWith(".html")) {
+                const source = await readFile(path, "utf8");
+                const updated = source.replace(
+                  rootRelativeUrl,
+                  `$1="${base}/`,
+                );
+
+                if (updated !== source) {
+                  await writeFile(path, updated);
+                }
+              }
+            }),
+          );
+        };
+
+        await visitDirectory(fileURLToPath(dir));
+      },
+    },
+  };
+}
+
+const githubPagesRedirects = Object.fromEntries(
+  Object.entries(redirectsConfig).map(([source, target]) => [
+    source,
+    `${githubPagesBase}${target}`,
+  ]),
+);
+
 export default defineConfig({
-  site: "https://kb.dxfeed.com",
-  redirects: redirectsConfig,
+  site: githubPagesSite,
+  base: githubPagesBase,
+  redirects: githubPagesRedirects,
+  markdown: {
+    rehypePlugins: [
+      [prefixRootRelativeUrls, { base: githubPagesBase }],
+    ],
+  },
   integrations: [
     starlight({
       title: "dxFeed Knowledge Base",
@@ -19,10 +107,7 @@ export default defineConfig({
       // no extra config needed, it indexes the built site at build time.
       social: [{ icon: "github", label: "GitHub", href: "https://github.com/dxfeed" }],
       editLink: {
-        // Point this at the real docs repo once migrated - enables "Edit this
-        // page" links and is a big part of what makes docs-as-code workflows
-        // (PR review, git blame, CODEOWNERS) actually work.
-        baseUrl: "https://github.com/dxfeed/dxfeed-docs/edit/main/",
+        baseUrl: "https://github.com/jkosheleva/dxfeed-docs/edit/main/",
       },
       plugins: [
         // Generates /llms.txt (index) and /llms-full.txt (entire corpus,
@@ -82,5 +167,6 @@ export default defineConfig({
         },
       ],
     }),
+    prefixGeneratedHtmlUrls({ base: githubPagesBase }),
   ],
 });
