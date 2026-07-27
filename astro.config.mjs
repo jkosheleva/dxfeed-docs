@@ -102,10 +102,11 @@ export default defineConfig({
       customCss: ["./src/styles/custom.css"],
       components: {
         PageTitle: "./src/components/PageTitle.astro",
+        SiteTitle: "./src/components/SiteTitle.astro",
+        ThemeSelect: "./src/components/Empty.astro",
       },
       // Built-in static search (Pagefind) ships automatically with Starlight -
       // no extra config needed, it indexes the built site at build time.
-      social: [{ icon: "github", label: "GitHub", href: "https://github.com/dxfeed" }],
       editLink: {
         baseUrl: "https://github.com/jkosheleva/dxfeed-docs/edit/main/",
       },
@@ -122,49 +123,49 @@ export default defineConfig({
         }),
       ],
       sidebar: [
-        {
-          label: "Getting Started",
-          items: [{ label: "Getting Started", link: "/getting-started/" }],
-        },
+        { label: "Getting Started", link: "/getting-started/" },
+        { label: "Glossary", link: "/glossary/" },
         {
           label: "Data",
-          items: [{ autogenerate: { directory: "data" } }],
+          collapsed: true,
+          items: [{ autogenerate: { directory: "data", collapsed: true } }],
         },
         {
           label: "Data Model",
-          items: [{ autogenerate: { directory: "data-model" } }],
-        },
-        {
-          label: "Data Services",
-          items: [{ autogenerate: { directory: "data-services" } }],
+          collapsed: true,
+          items: [{ autogenerate: { directory: "data-model", collapsed: true } }],
         },
         {
           label: "Market Data API",
-          items: [{ autogenerate: { directory: "market-data-api" } }],
+          collapsed: true,
+          items: [{ autogenerate: { directory: "market-data-api", collapsed: true } }],
+        },
+        {
+          label: "Data Services",
+          collapsed: true,
+          items: [{ autogenerate: { directory: "data-services", collapsed: true } }],
         },
         {
           label: "Market Search",
-          items: [{ autogenerate: { directory: "market-search" } }],
+          collapsed: true,
+          items: [{ autogenerate: { directory: "market-search", collapsed: true } }],
         },
         {
           label: "Visualization",
-          items: [{ autogenerate: { directory: "visualization" } }],
+          collapsed: true,
+          items: [{ autogenerate: { directory: "visualization", collapsed: true } }],
         },
         {
           label: "dxFeed Retail Products",
-          items: [{ autogenerate: { directory: "dxfeed-retail-products" } }],
+          collapsed: true,
+          items: [{ autogenerate: { directory: "dxfeed-retail-products", collapsed: true } }],
         },
         {
           label: "Support",
-          items: [{ autogenerate: { directory: "support" } }],
+          collapsed: true,
+          items: [{ autogenerate: { directory: "support", collapsed: true } }],
         },
-        {
-          label: "Reference",
-          items: [
-            { label: "FAQ", link: "/faq/" },
-            { label: "Glossary", link: "/glossary/" },
-          ],
-        },
+        { label: "FAQ", link: "/faq/" },
       ],
     }),
     prefixGeneratedHtmlUrls({ base: githubPagesBase }),

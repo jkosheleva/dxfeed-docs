@@ -1,96 +1,316 @@
-/*
-  Brand tokens extracted directly from the current kb.dxfeed.com production
-  stylesheet (styled.css), NOT the older Bootstrap/Material-Kit export used
-  in the first pass. This is the real, current palette:
-    - Primary accent (links, active nav, search highlight):  #f96b2e (orange)
-    - Accent hover/darker:                                    #de5934 / #f1522c
-    - Headings / body text:                                   #1a1b1f / #31383d
-    - Focus ring / external-link indicator:                   #3292f3 (blue)
-    - Body font:                                              Roboto
-    - Code font:                                               JetBrains Mono
-*/
-
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap");
 
 :root {
   --sl-font: "Roboto", -apple-system, BlinkMacSystemFont, sans-serif;
-  --sl-font-mono: "JetBrains Mono", Menlo, Monaco, Consolas, monospace;
-
-  /* Light mode - matches the current kb.dxfeed.com palette */
-  --sl-color-accent-low: #ffe4d3;
+  --sl-font-mono: "Roboto Mono", Menlo, Monaco, Consolas, monospace;
+  --sl-color-accent-low: #fff0e9;
   --sl-color-accent: #f96b2e;
-  --sl-color-accent-high: #de5934;
+  --sl-color-accent-high: #b83e13;
   --sl-color-text-accent: #f96b2e;
-
-  --sl-color-white: #ffffff;
-  --sl-color-gray-1: #f7f7f7;
-  --sl-color-gray-2: #e7e7e7;
-  --sl-color-gray-3: #c0c2c8;
-  --sl-color-gray-6: #31383d;
-  --sl-color-black: #1a1b1f;
+  --sl-nav-height: 4.75rem;
+  --sl-sidebar-width: 19.875rem;
+  --sl-content-width: 60.625rem;
+  --sl-content-pad-x: 2rem;
+  --dx-orange: #f96b2e;
+  --dx-orange-dark: #df5520;
+  --dx-ink: #1a1b1f;
+  --dx-text: #31383d;
+  --dx-muted: #6f7478;
+  --dx-border: #e7e7e7;
+  --dx-surface: #f7f7f7;
 }
 
 :root[data-theme="dark"] {
-  --sl-color-accent-low: #4a2c1a;
-  --sl-color-accent: #fb8951;
-  --sl-color-accent-high: #ffd2b3;
-  --sl-color-text-accent: #fb8951;
+  --sl-color-accent-low: #4b2518;
+  --sl-color-accent: #ff8854;
+  --sl-color-accent-high: #ffd0bb;
+  --sl-color-text-accent: #ff8854;
 }
 
-/* Headings match the current KB's dark charcoal, not pure black */
-h1, h2, h3, h4, h5, h6 {
+body {
+  color: var(--dx-text);
+  font-family: var(--sl-font);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--dx-ink);
   font-family: var(--sl-font);
   font-weight: 500;
-  color: #1a1b1f;
 }
+
+main h1#_top {
+  margin: 0 0 2rem;
+  color: var(--dx-ink);
+  font-size: 2.625rem;
+  font-weight: 700;
+  line-height: 1.19;
+}
+
+.sl-markdown-content h2 {
+  margin-top: 2rem;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.sl-markdown-content h3 {
+  margin-top: 1.75rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.sl-markdown-content :is(p, li) {
+  color: var(--dx-text);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.sl-markdown-content a {
+  color: #3292f3;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+.sl-markdown-content a:hover {
+  color: #1674d3;
+}
+
+header.header {
+  background: #fff;
+  border-bottom: 1px solid var(--dx-border);
+}
+
+header.header > .header {
+  padding-inline: 1.25rem 2rem;
+}
+
+header.header .title-wrapper {
+  width: 17.25rem;
+  flex: none;
+}
+
+header.header [data-open-modal] {
+  width: min(40.5rem, 100%);
+  height: 2.75rem;
+  color: var(--dx-text);
+  background: #fff;
+  border: 1px solid var(--dx-border);
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+header.header [data-open-modal]:hover {
+  border-color: #c9c9c9;
+}
+
+header.header .right-group {
+  display: none !important;
+}
+
+#starlight__sidebar {
+  background: #fff;
+  border-right: 1px solid var(--dx-border);
+}
+
+#starlight__sidebar .sidebar-content {
+  padding: 0.75rem 1.5rem 2rem;
+}
+
+#starlight__sidebar .top-level {
+  padding: 0;
+}
+
+#starlight__sidebar summary,
+#starlight__sidebar a {
+  color: var(--dx-ink);
+  font-size: 0.875rem;
+}
+
+#starlight__sidebar summary {
+  min-height: 2.25rem;
+  font-weight: 700;
+}
+
+#starlight__sidebar a {
+  border-radius: 0;
+}
+
+#starlight__sidebar a:hover,
+#starlight__sidebar summary:hover {
+  color: var(--dx-orange);
+  background: transparent;
+}
+
+#starlight__sidebar a[aria-current="page"] {
+  color: var(--dx-orange);
+  font-weight: 700;
+  background: transparent;
+  border-inline-start-color: var(--dx-orange);
+}
+
+.content-panel {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.right-sidebar {
+  border-left: 1px solid var(--dx-border);
+}
+
+.right-sidebar a {
+  color: var(--dx-text);
+}
+
+.right-sidebar a:hover,
+.right-sidebar a[aria-current="true"] {
+  color: var(--dx-orange);
+}
+
+.sl-markdown-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.sl-markdown-content :is(th, td) {
+  padding: 1rem;
+  border: 1px solid #efefef;
+}
+
+.sl-markdown-content th {
+  color: #333;
+  font-weight: 700;
+  text-align: left;
+  background: var(--dx-surface);
+}
+
+.sl-markdown-content td {
+  color: #333;
+  background: #fff;
+}
+
+.sl-markdown-content :not(pre) > code {
+  padding: 0.1em 0.35em;
+  color: #3a3a3c;
+  background: #f2f2f2;
+  border: 1px solid #e6e6e6;
+  border-radius: 2px;
+}
+
+.sl-markdown-content pre {
+  border: 1px solid #e2e2e2;
+  border-radius: 2px;
+}
+
+.starlight-aside {
+  border-color: var(--dx-orange);
+  border-radius: 2px;
+}
+
+.pagination-links a {
+  border-color: var(--dx-border);
+  border-radius: 2px;
+}
+
+.pagination-links a:hover {
+  color: var(--dx-orange);
+  border-color: var(--dx-orange);
+}
+
+body:has(.dx-home) > .page > header.header,
+body:has(.dx-home) .main-frame > .main-pane > .content-panel:first-child,
+body:has(.dx-home) .right-sidebar,
+body:has(.dx-home) .pagination-links,
+body:has(.dx-home) .meta {
+  display: none;
+}
+
+body:has(.dx-home) {
+  background: #e5e5e5;
+}
+
+body:has(.dx-home) .page,
+body:has(.dx-home) .main-frame,
+body:has(.dx-home) .main-pane,
+body:has(.dx-home) main {
+  display: block;
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+body:has(.dx-home) .content-panel {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+body:has(.dx-home) .sl-container,
+body:has(.dx-home) .sl-markdown-content {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+body:has(.dx-home) .sl-markdown-content > :first-child {
+  margin-top: 0;
+}
+
 :root[data-theme="dark"] h1,
 :root[data-theme="dark"] h2,
 :root[data-theme="dark"] h3,
 :root[data-theme="dark"] h4,
 :root[data-theme="dark"] h5,
-:root[data-theme="dark"] h6 {
+:root[data-theme="dark"] h6,
+:root[data-theme="dark"] main h1#_top {
   color: var(--sl-color-white);
 }
 
-/* Body copy uses the KB's #31383d rather than Starlight's default gray */
-main p {
-  color: #31383d;
-}
-:root[data-theme="dark"] main p {
-  color: var(--sl-color-gray-2);
+:root[data-theme="dark"] header.header,
+:root[data-theme="dark"] #starlight__sidebar {
+  background: #16171b;
 }
 
-/* Sidebar active link - orange, bold, matching .nav-site-sidebar li.active */
-.sidebar a[aria-current="page"],
-starlight-sidebar-topics-list [aria-current="page"] {
-  color: var(--sl-color-accent-high);
-  font-weight: 700;
+:root[data-theme="dark"] #starlight__sidebar summary,
+:root[data-theme="dark"] #starlight__sidebar a {
+  color: #f2f2f2;
 }
 
-/* Link hover - darker orange, matching the live site's a:hover */
-a:hover {
-  color: #de5934;
-}
-:root[data-theme="dark"] a:hover {
-  color: #ffb98c;
+:root[data-theme="dark"] .sl-markdown-content :is(p, li) {
+  color: #d6d6d6;
 }
 
-/* External links get the KB's blue treatment */
-main a[target="_blank"] {
-  color: #3292f3;
-}
-main a[target="_blank"]:hover,
-main a[target="_blank"]:focus {
-  color: #3292f3;
+:root[data-theme="dark"] .sl-markdown-content td {
+  color: #e8e8e8;
+  background: #1d1e23;
 }
 
-/* Focus ring matches the KB's blue focus outline instead of Starlight's default */
-a:focus-visible,
-button:focus-visible {
-  outline: 2px solid #3292f3;
-  outline-offset: 2px;
+:root[data-theme="dark"] .sl-markdown-content th {
+  color: #f4f4f4;
+  background: #27282e;
 }
 
-code, pre {
-  font-family: var(--sl-font-mono);
+@media (max-width: 799px) {
+  :root {
+    --sl-nav-height: 4rem;
+    --sl-content-pad-x: 1.25rem;
+  }
+
+  main h1#_top {
+    font-size: 2.125rem;
+  }
+
+  .sl-markdown-content h2 {
+    font-size: 1.65rem;
+  }
 }
