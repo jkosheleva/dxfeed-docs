@@ -1,54 +1,96 @@
 /*
-  Brand tokens extracted directly from the current KB's live stylesheets
-  (out/css/theme2-colors.css - the active theme - and style-responsive.css):
-    - Primary accent:      #7e57c2 (links, buttons, sidebar active state, titles)
-    - Accent hover/dark:   #593696
-    - Footer/deep accent:  #4d2c91
-    - Body/heading font:   'Roboto', sans-serif
-  This file re-maps those tokens onto Starlight's CSS custom properties so
-  the new site reads as the same product, not a generic Starlight default.
+  Brand tokens extracted directly from the current kb.dxfeed.com production
+  stylesheet (styled.css), NOT the older Bootstrap/Material-Kit export used
+  in the first pass. This is the real, current palette:
+    - Primary accent (links, active nav, search highlight):  #f96b2e (orange)
+    - Accent hover/darker:                                    #de5934 / #f1522c
+    - Headings / body text:                                   #1a1b1f / #31383d
+    - Focus ring / external-link indicator:                   #3292f3 (blue)
+    - Body font:                                              Roboto
+    - Code font:                                               JetBrains Mono
 */
 
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap");
 
 :root {
   --sl-font: "Roboto", -apple-system, BlinkMacSystemFont, sans-serif;
-  --sl-font-mono: "Roboto Mono", Menlo, Monaco, Consolas, monospace;
+  --sl-font-mono: "JetBrains Mono", Menlo, Monaco, Consolas, monospace;
 
-  /* Light mode - matches theme2-colors.css primary palette */
-  --sl-color-accent-low: #f1eaf9;
-  --sl-color-accent: #7e57c2;
-  --sl-color-accent-high: #4d2c91;
-  --sl-color-text-accent: #7e57c2;
+  /* Light mode - matches the current kb.dxfeed.com palette */
+  --sl-color-accent-low: #ffe4d3;
+  --sl-color-accent: #f96b2e;
+  --sl-color-accent-high: #de5934;
+  --sl-color-text-accent: #f96b2e;
+
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #f7f7f7;
+  --sl-color-gray-2: #e7e7e7;
+  --sl-color-gray-3: #c0c2c8;
+  --sl-color-gray-6: #31383d;
+  --sl-color-black: #1a1b1f;
 }
 
 :root[data-theme="dark"] {
-  --sl-color-accent-low: #3a2a5c;
-  --sl-color-accent: #a487d6;
-  --sl-color-accent-high: #d9cdf0;
-  --sl-color-text-accent: #b79ae0;
+  --sl-color-accent-low: #4a2c1a;
+  --sl-color-accent: #fb8951;
+  --sl-color-accent-high: #ffd2b3;
+  --sl-color-text-accent: #fb8951;
 }
 
-/* Headings use the same medium-weight Roboto the current KB uses for
-   .titlepage h1/h2/h3 */
+/* Headings match the current KB's dark charcoal, not pure black */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--sl-font);
   font-weight: 500;
+  color: #1a1b1f;
+}
+:root[data-theme="dark"] h1,
+:root[data-theme="dark"] h2,
+:root[data-theme="dark"] h3,
+:root[data-theme="dark"] h4,
+:root[data-theme="dark"] h5,
+:root[data-theme="dark"] h6 {
+  color: var(--sl-color-white);
 }
 
-/* Sidebar active link - the current KB highlights the active nav item in
-   the accent color against a plain background, not a filled pill */
-starlight-sidebar-topics-list [aria-current="page"],
-.sidebar a[aria-current="page"] {
+/* Body copy uses the KB's #31383d rather than Starlight's default gray */
+main p {
+  color: #31383d;
+}
+:root[data-theme="dark"] main p {
+  color: var(--sl-color-gray-2);
+}
+
+/* Sidebar active link - orange, bold, matching .nav-site-sidebar li.active */
+.sidebar a[aria-current="page"],
+starlight-sidebar-topics-list [aria-current="page"] {
   color: var(--sl-color-accent-high);
   font-weight: 700;
 }
 
-/* Buttons/links get the same hover-darken behavior as the live site
-   (#7e57c2 -> #593696 on hover) */
+/* Link hover - darker orange, matching the live site's a:hover */
 a:hover {
-  color: #593696;
+  color: #de5934;
 }
 :root[data-theme="dark"] a:hover {
-  color: #c7b3ea;
+  color: #ffb98c;
+}
+
+/* External links get the KB's blue treatment */
+main a[target="_blank"] {
+  color: #3292f3;
+}
+main a[target="_blank"]:hover,
+main a[target="_blank"]:focus {
+  color: #3292f3;
+}
+
+/* Focus ring matches the KB's blue focus outline instead of Starlight's default */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #3292f3;
+  outline-offset: 2px;
+}
+
+code, pre {
+  font-family: var(--sl-font-mono);
 }
