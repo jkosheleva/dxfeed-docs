@@ -1,0 +1,59 @@
+{
+  "pages": 123,
+  "images": 62,
+  "broken_links": [
+    {
+      "href": "urn:resource:component:95811",
+      "label": "Learn more"
+    },
+    {
+      "href": "urn:resource:component:86510",
+      "label": "Fundamentals Data Dictionary"
+    },
+    {
+      "href": "#N1673516308281/para-idm53523825025442",
+      "label": "Schedule"
+    },
+    {
+      "href": "#section-idm4531453350521632666942270756",
+      "label": "Date modifiers"
+    },
+    {
+      "href": "#section-idm4531453385600032668418886904",
+      "label": "ICE"
+    },
+    {
+      "href": "#section-idm4624092471283234303577054891",
+      "label": "WebSocket"
+    },
+    {
+      "href": "#UUID-d4af076d-5cbc-ce63-6f09-c4006380a02d_table-idm4616719189062432529085676143",
+      "label": "source list"
+    },
+    {
+      "href": "#id_HowtoRequestTickData-Requeststructure",
+      "label": "TickData service"
+    },
+    {
+      "href": "#UUID-601eeadb-f12c-eb62-f783-b7aa48ca770b_title-idm53267048750896",
+      "label": "Candlewebservice"
+    },
+    {
+      "href": "#section-idm575687355520482",
+      "label": "Compliance"
+    },
+    {
+      "href": "/document/preview/58302#UUID-13ca5818-e4b4-f104-a957-abf340241dc5",
+      "label": "access-related requests"
+    },
+    {
+      "href": "urn:resource:component:95811",
+      "label": "Aggregated services"
+    },
+    {
+      "href": "urn:resource:component:95811",
+      "label": "Aggregated services"
+    }
+  ],
+  "code_blocks_without_lang": 0
+}

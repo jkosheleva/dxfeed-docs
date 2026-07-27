@@ -1,0 +1,18 @@
+{
+  "name": "dxfeed-docs",
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check:content": "node scripts/check-source-content.mjs",
+    "check:links": "node scripts/check-built-links.mjs",
+    "check": "npm run check:content && npm run build && npm run check:links"
+  },
+  "dependencies": {
+    "astro": "^7.0.9",
+    "@astrojs/starlight": "^0.41.3",
+    "starlight-llms-txt": "^0.11.0"
+  }
+}

@@ -1,0 +1,54 @@
+/*
+  Brand tokens extracted directly from the current KB's live stylesheets
+  (out/css/theme2-colors.css - the active theme - and style-responsive.css):
+    - Primary accent:      #7e57c2 (links, buttons, sidebar active state, titles)
+    - Accent hover/dark:   #593696
+    - Footer/deep accent:  #4d2c91
+    - Body/heading font:   'Roboto', sans-serif
+  This file re-maps those tokens onto Starlight's CSS custom properties so
+  the new site reads as the same product, not a generic Starlight default.
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap");
+
+:root {
+  --sl-font: "Roboto", -apple-system, BlinkMacSystemFont, sans-serif;
+  --sl-font-mono: "Roboto Mono", Menlo, Monaco, Consolas, monospace;
+
+  /* Light mode - matches theme2-colors.css primary palette */
+  --sl-color-accent-low: #f1eaf9;
+  --sl-color-accent: #7e57c2;
+  --sl-color-accent-high: #4d2c91;
+  --sl-color-text-accent: #7e57c2;
+}
+
+:root[data-theme="dark"] {
+  --sl-color-accent-low: #3a2a5c;
+  --sl-color-accent: #a487d6;
+  --sl-color-accent-high: #d9cdf0;
+  --sl-color-text-accent: #b79ae0;
+}
+
+/* Headings use the same medium-weight Roboto the current KB uses for
+   .titlepage h1/h2/h3 */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--sl-font);
+  font-weight: 500;
+}
+
+/* Sidebar active link - the current KB highlights the active nav item in
+   the accent color against a plain background, not a filled pill */
+starlight-sidebar-topics-list [aria-current="page"],
+.sidebar a[aria-current="page"] {
+  color: var(--sl-color-accent-high);
+  font-weight: 700;
+}
+
+/* Buttons/links get the same hover-darken behavior as the live site
+   (#7e57c2 -> #593696 on hover) */
+a:hover {
+  color: #593696;
+}
+:root[data-theme="dark"] a:hover {
+  color: #c7b3ea;
+}
